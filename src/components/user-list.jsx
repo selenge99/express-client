@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const UserList = () => {
   const [users, setUsers] = useState();
+  const [refetch, setRefetch] = useState(false);
 
   const getEmployeesData = async () => {
     const res = await fetch("http://localhost:8000/users");
@@ -17,7 +18,7 @@ const UserList = () => {
     });
     const { user } = await res.json(res);
     console.log("success deleted", user);
-    getEmployeesData();
+    setRefetch(!refetch);
   };
 
   const createEmployee = async () => {
@@ -36,12 +37,31 @@ const UserList = () => {
     });
     const { user } = await res.json(res);
     console.log("success deleted", user);
-    setUsers([...users, user]);
+    // setUsers([...users, user]);
+    setRefetch(!refetch);
+  };
+
+  const editEmployeesData = async (userId) => {
+    const res = await fetch(`http://localhost:8000/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: "John",
+        lastname: "David",
+        email: "naraa@gmail.com",
+        position: "Account",
+      }),
+    });
+    const { user } = await res.json();
+
+    setRefetch(!refetch);
   };
 
   useEffect(() => {
     getEmployeesData();
-  }, []);
+  }, [refetch]);
 
   return (
     <div className="overflow-x-auto">
@@ -52,7 +72,11 @@ const UserList = () => {
         </thead>
         <tbody>
           {users?.map((user) => (
-            <UserRow user={user} deleteEmplpyeeById={deleteEmplpyeeById} />
+            <UserRow
+              user={user}
+              deleteEmplpyeeById={deleteEmplpyeeById}
+              editEmployeesData={editEmployeesData}
+            />
           ))}
         </tbody>
       </table>

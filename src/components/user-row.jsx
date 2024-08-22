@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserRow = ({ user, deleteEmplpyeeById }) => {
+const UserRow = ({ user, deleteEmplpyeeById, editEmployeesData }) => {
   return (
     <tr>
       <td>
@@ -24,7 +24,15 @@ const UserRow = ({ user, deleteEmplpyeeById }) => {
       </td>
       <td>{user.email}</td>
       <td>
-        <button className="btn btn-outline btn-info btn-xs ">Edit</button>
+        <button
+          className="btn btn-outline btn-info btn-xs "
+          onClick={() => {
+            console.log(user.eid);
+            editEmployeesData(user.eid);
+          }}
+        >
+          Edit
+        </button>
         <button
           className="btn btn-outline btn-error btn-xs "
           onClick={() => {
