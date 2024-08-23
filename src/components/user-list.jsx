@@ -82,12 +82,59 @@ const UserList = () => {
       </table>
       <div>
         <button
-          className="btn btn-outline btn-success  "
-          onClick={() => {
-            createEmployee();
-          }}
+        // className="btn btn-outline btn-success  "
+        // onClick={() => {
+        //   createEmployee();
+        // }}
         >
-          Ажилтан үүсгэх
+          <button
+            className="btn"
+            onClick={() => document.getElementById("my_modal_1").showModal()}
+          >
+            Add Employee
+          </button>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Hello!</h3>
+              <div className="flex flex-col gap-4 ">
+                <input
+                  // onChange={HandleChange}
+                  type="text"
+                  className="border border-gray-600 rounded-md p-2 "
+                  placeholder="FistName"
+                />
+                <input
+                  type="text"
+                  className="grow border border-gray-600 rounded-md p-2"
+                  placeholder="LastName"
+                />
+                <input
+                  type="text"
+                  className="grow border border-gray-600 rounded-md p-2"
+                  placeholder="Position"
+                />
+                <input
+                  type="text"
+                  className="grow border border-gray-600 rounded-md p-2"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button
+                    onClick={() => {
+                      createEmployee();
+                    }}
+                    className="btn"
+                  >
+                    Save
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </button>
       </div>
     </div>
